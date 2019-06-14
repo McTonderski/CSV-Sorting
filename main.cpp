@@ -41,7 +41,7 @@ void save(vector<vector<string>>data, vector<string>headers){
     string out = head + data_to_save;
     fin << out;
     fin.close();
-    cout<<"\n\nFile saved thank you for using program";
+    cout<<"File saved thank you for using program!";
 }
 
 void csv_sort(int sort_after, bool order,int col_count, vector<string>content){
@@ -91,7 +91,7 @@ int menu(vector<string> col_names){
         menu(col_names);
     }
 
-    return a-1;
+    return a;
 }
 
 bool order_choice(){
@@ -167,5 +167,5 @@ int main(int argc, char* argv[]){
         cout <<"You didn't provided a file name!";
         return -1;
     }
-    
+    return 0;
 }
