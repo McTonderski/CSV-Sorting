@@ -17,8 +17,8 @@ auto task_1(){
     cout<<"Choose column to sort after"<<endl;
 }
 
-void save(vector<vector<string>>data, vector<string>headers){
-    system("CLS");
+void save(const vector<vector<string>>& data, const vector<string>& headers){
+    system("CLS"); 
     fstream fin;
     fin.open("Contact.csv", ios::out);
     string head;
@@ -44,7 +44,7 @@ void save(vector<vector<string>>data, vector<string>headers){
     cout<<"File saved thank you for using program!";
 }
 
-void csv_sort(int sort_after, bool order,int col_count, vector<string>content){
+void csv_sort(int sort_after, bool order,int col_count, const vector<string>& content){
     vector<vector<string>> data;
     vector<string> set;
     set = vector<string>(content.begin() + 1, content.end());
@@ -70,7 +70,7 @@ void csv_sort(int sort_after, bool order,int col_count, vector<string>content){
     save(data, vector<string>(content.begin(), content.begin()+1));
 }
 
-int menu(vector<string> col_names){
+int menu(const vector<string>& col_names){
     system("CLS");
     header();
     task_1();
@@ -114,7 +114,7 @@ bool order_choice(){
     return (a==2) ? false : true;
 }
 
-auto work_on_sheet(vector<string> content){
+auto work_on_sheet(const vector<string>& content){
     vector<string>col_names;
     int col_count;
     if(!isdigit(content[0][0])){
