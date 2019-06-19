@@ -17,10 +17,10 @@ auto task_1(){
     cout<<"Choose column to sort after"<<endl;
 }
 
-void save(const vector<vector<string>>& data, const vector<string>& headers){
+void save(const vector<vector<string>>& data, const vector<string>& headers, string argv){
     system("CLS"); 
     fstream fin;
-    fin.open("Contact.csv", ios::out);
+    fin.open(argv, ios::out);
     string head;
     for(string a : headers){
         head += a + ',';
@@ -44,7 +44,7 @@ void save(const vector<vector<string>>& data, const vector<string>& headers){
     cout<<"File saved thank you for using program!";
 }
 
-void csv_sort(int sort_after, bool order,int col_count, const vector<string>& content){
+void csv_sort(int sort_after, bool order,int col_count, const vector<string>& content, string argv){
     vector<vector<string>> data;
     vector<string> set;
     set = vector<string>(content.begin() + 1, content.end());
@@ -67,7 +67,7 @@ void csv_sort(int sort_after, bool order,int col_count, const vector<string>& co
         return (derek) ? a[variabke - 1] < b[variabke - 1] :  a[variabke - 1] > b[variabke - 1];
     },std::placeholders::_1, std::placeholders::_2, sort_after, order));
     
-    save(data, vector<string>(content.begin(), content.begin()+1));
+    save(data, vector<string>(content.begin(), content.begin()+1), argv);
 }
 
 int menu(const vector<string>& col_names){
@@ -114,7 +114,7 @@ bool order_choice(){
     return (a==2) ? false : true;
 }
 
-auto work_on_sheet(const vector<string>& content){
+auto work_on_sheet(const vector<string>& content, string argv){
     vector<string>col_names;
     int col_count;
     if(!isdigit(content[0][0])){
@@ -144,8 +144,11 @@ auto work_on_sheet(const vector<string>& content){
     }
     int sort_after = menu(col_names);
     bool order = order_choice();
-    csv_sort(sort_after, order, col_count, content);
+    csv_sort(sort_after, order, col_count, content, argv);
 }
+
+//
+//
 
 int main(int argc, char* argv[]){
     fstream fout;
@@ -162,7 +165,7 @@ int main(int argc, char* argv[]){
             lines.push_back(s);
         }
         fout.close();
-        work_on_sheet(lines);
+        work_on_sheet(lines, argv[1]);
     }catch(int x){
         cout <<"You didn't provided a file name!";
         return -1;
