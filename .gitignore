@@ -2,4 +2,5 @@
 *.exe
 #ignore documentation for marking
 documentation.docu
-
+#ignore config
+*.vscode
