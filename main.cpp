@@ -6,6 +6,7 @@
 #include<sstream>
 #include<stdlib.h>
 #include<algorithm>
+#include<iomanip>
 #include<functional>
 using namespace std;
 
@@ -15,6 +16,46 @@ auto header(){
 
 auto task_1(){
     cout<<"Choose column to sort after"<<endl;
+}
+
+void display_sheet(const vector<vector<string>>& data, const vector<string>& headers){
+    system("CLS");
+    bool first = false;
+    stringstream s(headers[0]);
+    vector<string> col_names;
+    while(s.good()){
+        string substring;
+        getline(s, substring, ',');
+        col_names.push_back(substring);
+    }
+    for(auto i: col_names){
+        if(first){
+            cout<<" | "<<setw(15)<<i;
+        }else{
+            cout<<i;
+            first = true;
+        }
+    }
+    cout<<endl;
+    cout<<setfill('-')<<setw(15*col_names.size());
+    cout<<"\n";
+    cout<<setfill(' ');
+    auto limit = 20;
+    for(auto i: data){
+        first = false;
+        for(auto a: i){
+            if(first){
+            cout<<" | "<<setw(15)<<a;
+            }else{
+            cout<<a;
+            first = true;
+            }
+        }
+        cout<<'\n';
+        limit--;
+        if(limit == 0)
+            break;
+    }
 }
 
 void save(const vector<vector<string>>& data, const vector<string>& headers, string argv){
@@ -40,6 +81,7 @@ void save(const vector<vector<string>>& data, const vector<string>& headers, str
     data_to_save.pop_back();
     string out = head + data_to_save;
     fin << out;
+    display_sheet(data, headers);
     fin.close();
     cout<<"File saved thank you for using program!";
 }
@@ -125,9 +167,6 @@ auto work_on_sheet(const vector<string>& content, string argv){
             getline(s, substring, ',');
             col_names.push_back(substring);
         }
-        // for(auto i: col_names){
-        //     cout<<i<<endl;
-        // }
         col_count = col_names.size();
     }else{
         stringstream s(content[0]);
@@ -137,18 +176,12 @@ auto work_on_sheet(const vector<string>& content, string argv){
             getline(s, substring, ',');
             col_names.push_back(substring);
         }
-        // for(auto i: col_names){
-        //     cout<<i<<endl;
-        // }
         col_count = col_names.size();
     }
     int sort_after = menu(col_names);
     bool order = order_choice();
     csv_sort(sort_after, order, col_count, content, argv);
 }
-
-//
-//
 
 int main(int argc, char* argv[]){
     fstream fout;
